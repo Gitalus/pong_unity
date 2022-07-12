@@ -24,7 +24,8 @@ public class CameraEdgeCollision : MonoBehaviour
     }
 
     // Get or Add Edge Collider 2D component
-    var edgeCollider = gameObject.GetComponent<EdgeCollider2D>() == null ? gameObject.AddComponent<EdgeCollider2D>() : gameObject.GetComponent<EdgeCollider2D>();
+    var edgeColliderTop = gameObject.AddComponent<EdgeCollider2D>();
+    var edgeColliderBottom = gameObject.AddComponent<EdgeCollider2D>();
 
     // Making camera bounds
     var leftBottom = (Vector2)cam.ScreenToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
@@ -32,9 +33,11 @@ public class CameraEdgeCollision : MonoBehaviour
     var rightTop = (Vector2)cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, cam.pixelHeight, cam.nearClipPlane));
     var rightBottom = (Vector2)cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, cam.nearClipPlane));
 
-    var edgePoints = new[] { leftBottom, leftTop, rightTop, rightBottom, leftBottom };
+    var edgePointsTop = new[] { leftTop, rightTop };
+    var edgePointsBottom = new[] { leftBottom, rightBottom };
 
     // Adding edge points
-    edgeCollider.points = edgePoints;
+    edgeColliderTop.points = edgePointsTop;
+    edgeColliderBottom.points = edgePointsBottom;
   }
 }
